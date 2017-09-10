@@ -56,6 +56,7 @@ class MainMenuState: GKState {
         playButton.addChild(playButtonText)
         
         // Rate Button
+        /*
         let rateButton = SKSpriteNode(imageNamed: "Button")
         rateButton.position = CGPoint(x: scene.size.width * 0.75, y: scene.size.height * 0.25)
         rateButton.zPosition = Layer.ui.rawValue
@@ -64,6 +65,7 @@ class MainMenuState: GKState {
         let rateButtonText = SKSpriteNode(imageNamed: "Rate")
         rateButtonText.position = CGPoint.zero
         rateButton.addChild(rateButtonText)
+        */
         
         // Learn Button
         let learnButton = SKSpriteNode(imageNamed: "button_learn")

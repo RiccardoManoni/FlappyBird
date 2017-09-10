@@ -34,7 +34,7 @@ protocol GameSceneDelegate{
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameSceneDelegate: GameSceneDelegate
-    let appStoreLink = "https://itunes.apple.com/it/app/colan-smart-radio/id1205905610?mt=8"
+    let appStoreLink = "https://itunes.apple.com/your-app"
     
     let worldNode = SKNode()
     var playableStart: CGFloat = 0
@@ -267,11 +267,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameSceneDelegate.shareString(initialTextString, url: url!, image: screenshot)
     }
     
+    /*
     func rateApp() {
         let urlString = appStoreLink
         let url = URL(string: urlString)
         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
+    */
     
     func learn() {
         let urlString = "https://www.raywenderlich.com"
@@ -303,7 +305,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else if touchLocation.x < size.width * 0.6 {
                     restartGame(TutorialState.self)
                 } else {
-                    rateApp()
+                    //rateApp()
                 }
             case is TutorialState:
                 stateMachine.enter(PlayingState.self)
