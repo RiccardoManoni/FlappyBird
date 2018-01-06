@@ -36,6 +36,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameSceneDelegate: GameSceneDelegate
     let appStoreLink = "https://itunes.apple.com/your-app"
     
+    let lightNode = SKLightNode()
+    
     let worldNode = SKNode()
     var playableStart: CGFloat = 0
     var playableHeight: CGFloat = 0
@@ -101,6 +103,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.anchorPoint = CGPoint(x: 0.5, y: 1.0)
         background.position = CGPoint(x: size.width / 2, y: size.height)
         background.zPosition = Layer.background.rawValue
+        background.lightingBitMask = 1
         
         playableStart = size.height - background.size.height
         playableHeight = background.size.height
@@ -121,6 +124,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let foreground = SKSpriteNode(imageNamed: "Ground")
             foreground.anchorPoint = CGPoint(x: 0.0, y: 1.0)
             foreground.position = CGPoint(x: CGFloat(i) * foreground.size.width, y: playableStart)
+            foreground.lightingBitMask = 1
             foreground.zPosition = Layer.foreground.rawValue
             foreground.name = "foreground"
             
@@ -134,6 +138,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerNode.zPosition = Layer.player.rawValue
         
         worldNode.addChild(playerNode)
+        
+        lightNode.position = CGPoint(x: size.width * 0.2, y: playableHeight * 0.4 + playableStart)
+        lightNode.isEnabled = true
+        //lightNode.falloff = 2
+        lightNode.zPosition = Layer.player.rawValue
+        lightNode.categoryBitMask = 1
+        worldNode.addChild(lightNode)
         
         player.movementComponent.playableStart = playableStart
         player.animationComponent.startWobble()
@@ -152,6 +163,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func createObstacle() -> SKSpriteNode {
         let obstacle = ObstacleEntity(imageName: "Cactus")
         let obstacleNode = obstacle.spriteComponent.node
+        obstacleNode.lightingBitMask = 1
         obstacleNode.zPosition = Layer.obstacle.rawValue
         obstacleNode.name = "obstacle"
         obstacleNode.userData = NSMutableDictionary()
@@ -335,5 +347,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         stateMachine.update(deltaTime: deltaTime)
         
         player.update(deltaTime: deltaTime)
+        
+        lightNode.position = player.spriteComponent.node.position
     }
 }
